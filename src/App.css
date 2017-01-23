@@ -34,6 +34,25 @@ td{
   color: white;
 }
 
+.clock {
+  font-size: 100px;
+  margin-bottom: 75px;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;;
+  justify-content: space-between;
+}
+
+.temp-container {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

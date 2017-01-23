@@ -1,6 +1,5 @@
 import React, { Component, } from 'react';
 import {Table} from 'react-bootstrap';
-var XMLParser = require('react-xml-parser');
 import ReactHtmlParser from 'react-html-parser';
 import './App.css';
 import moment from 'moment';
@@ -65,15 +64,27 @@ class App extends Component {
   }
 
 
-
   render() {
     if(this.state.toCentrum.next && this.state.fromCentrum.next){
       var toCentrum = this.state.toCentrum.next.slice(0,6);
       var fromCentrum = this.state.fromCentrum.next.slice(0,6);
       var weather = this.state.weather
+      var now = moment().format('HH:mm')
+      var degreeSign = String.fromCharCode(parseInt("00B0", 16));
       return (
         <div className='container'>
-          <h1>Til Sentrum</h1>
+          <div className='flex-container'>
+            <h1 className='clock'>{now}</h1>
+            <div className='temp-container'>
+              <div style={{textAlign: 'center', fontSize: 22}}>inne: 22{degreeSign}C</div>
+              <div style={{textAlign: 'center', fontSize: 22}}>ute: {weather.observations.weatherstation[0].temperature['@attributes'].value}{degreeSign}C</div>
+            </div>
+          </div>
+          <h1>Vær i {weather.location.name}</h1>
+          <p>{weather.forecast.tabular.time[0]["@attributes"].from.substring(11,16)}-{weather.forecast.tabular.time["0"]["@attributes"].to.substring(11,16)}: {weather.forecast.tabular.time["0"].symbol["@attributes"].name}, {weather.forecast.tabular.time["0"].windSpeed["@attributes"].name} fra {weather.forecast.tabular.time["0"].windDirection["@attributes"].name.toLowerCase()}</p>
+          <p>{weather.forecast.tabular.time["1"]["@attributes"].from.substring(11,16)}-{weather.forecast.tabular.time["1"]["@attributes"].to.substring(11,16)}: {weather.forecast.tabular.time["1"].symbol["@attributes"].name}, {weather.forecast.tabular.time["1"].windSpeed["@attributes"].name} fra {weather.forecast.tabular.time["1"].windDirection["@attributes"].name.toLowerCase()}</p>
+          <p>{weather.forecast.tabular.time["2"]["@attributes"].from.substring(11,16)}-{weather.forecast.tabular.time["2"]["@attributes"].to.substring(11,16)}: {weather.forecast.tabular.time["2"].symbol["@attributes"].name}, {weather.forecast.tabular.time["2"].windSpeed["@attributes"].name} fra {weather.forecast.tabular.time["2"].windDirection["@attributes"].name.toLowerCase()}</p>
+          <h1 style={{marginTop: 50}}>Til Sentrum</h1>
           <Table  condensed hover responsive>
             <tbody>
             <td className='col-md-3'>Buss</td>
@@ -109,11 +120,6 @@ class App extends Component {
             })}
             </tbody>
           </Table>
-          <h1>Vær i {weather.location.name}</h1>
-          <p>{ReactHtmlParser(weather.forecast.text.location.time[0].body)}</p>
-          <h1>Temperatur</h1>
-          <div className='col-md-6' style={{textAlign: 'center', fontSize: '22'}}>inne: 22</div>
-          <div className='col-md-6' style={{textAlign: 'center', fontSize: '22'}}>{weather.observations.weatherstation[0].temperature['@attributes'].value} grader</div>
         </div>
       );
     }
