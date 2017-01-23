@@ -1,0 +1,40 @@
+.App {
+  text-align: center;
+  background-color: black;
+}
+
+.App-header {
+  background-color: black;
+  height: 50px;
+  padding: 20px;
+  color: white;
+}
+
+.container{
+  max-width: 800px;
+  background-color: black;
+  padding: 20px;
+}
+
+td{
+  font-size: 18px;
+}
+
+.Bus-header {
+  background-color: black;
+  font-size: large;
+  color: white;
+}
+
+
+.Bus-table {
+  background-color: black;
+  height: 400px;
+  font-size: 50px;
+  color: white;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
