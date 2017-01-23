@@ -5,11 +5,14 @@ import './App.css';
 import moment from 'moment';
 import 'moment/locale/nb';
 
-
-
 class App extends Component {
   constructor(props){
     super(props);
+    moment.defineLocale('nb-fix', {
+      parentLocale: 'nb',
+      relativeTime : {
+          future : ' %s',},
+    });
     this.state = {
       toCentrum: [],
       fromCentrum: [],
@@ -64,21 +67,23 @@ class App extends Component {
   }
 
   getWeather(time){
+    var degreeSign = String.fromCharCode(parseInt("00B0", 16));
     var from = this.state.weather.forecast.tabular.time[time]["@attributes"].from.substring(11,16);
     var to = this.state.weather.forecast.tabular.time[time]["@attributes"].to.substring(11,16);
     //var date = weather.forecast.tabular.time[0]["@attributes"].from.substring(11,16);
     var symbol = this.state.weather.forecast.tabular.time[time].symbol["@attributes"].name;
     var windSpeed = this.state.weather.forecast.tabular.time[time].windSpeed["@attributes"].name;
     var windDir = this.state.weather.forecast.tabular.time[time].windDirection["@attributes"].name.toLowerCase();
+    var temp = this.state.weather.forecast.tabular.time[time].temperature["@attributes"].value;
     var iMorgen = moment().isBefore(moment(this.state.weather.forecast.tabular.time[time]["@attributes"].from, 'YYYY-MM-DD HH:mm'), 'day') > 0 ? ' i morgen' : '';
-    return from + '-' + to + iMorgen + ': ' + symbol + ', ' + windSpeed + ' fra ' + windDir;
+    return from + '-' + to + iMorgen + ': ' + symbol + ', ' + windSpeed + ' fra ' + windDir + '. ' + temp + degreeSign +'C.';
   }
 
   render() {
     if(this.state.toCentrum.next && this.state.fromCentrum.next){
       var toCentrum = this.state.toCentrum.next.slice(0,6);
       var fromCentrum = this.state.fromCentrum.next.slice(0,6);
-      var weather = this.state.weather
+      var weather = this.state.weather;
       var now = moment().format('HH:mm')
       var degreeSign = String.fromCharCode(parseInt("00B0", 16));
       return (
@@ -103,6 +108,13 @@ class App extends Component {
               {toCentrum.map((bus)=>{
                 let arrival = new Date(bus.t.substring(6,10) + "-" + bus.t.substring(3,5) + "-" + bus.t.substring(0,2) + " " + bus.t.substring(11,13) + ":" + bus.t.substring(14,16));
                 if(arrival - new Date() > 0){
+                  if(arrival - new Date() < 30000){
+                    return(<tr>
+                      <td className='col-md-3'>{bus.l}</td>
+                      <td className='col-md-5'>{bus.d}</td>
+                      <td className='col-md-4' style={{textAlign:'right'}}>nå</td>
+                    </tr>);
+                  }
                   return(<tr>
                     <td className='col-md-3'>{bus.l}</td>
                     <td className='col-md-5'>{bus.d}</td>
@@ -121,6 +133,13 @@ class App extends Component {
             {fromCentrum.map((bus)=>{
               let arrival = new Date(bus.t.substring(6,10) + "-" + bus.t.substring(3,5) + "-" + bus.t.substring(0,2) + " " + bus.t.substring(11,13) + ":" + bus.t.substring(14,16));
               if(arrival - new Date() > 0){
+                if(arrival - new Date() < 30000){
+                  return(<tr>
+                    <td className='col-md-3'>{bus.l}</td>
+                    <td className='col-md-5'>{bus.d}</td>
+                    <td className='col-md-4' style={{textAlign:'right'}}>nå</td>
+                  </tr>);
+                }
                 return(<tr>
                   <td className='col-md-3'>{bus.l}</td>
                   <td className='col-md-5'>{bus.d}</td>
