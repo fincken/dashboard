@@ -63,6 +63,16 @@ class App extends Component {
     })
   }
 
+  getWeather(time){
+    var from = this.state.weather.forecast.tabular.time[time]["@attributes"].from.substring(11,16);
+    var to = this.state.weather.forecast.tabular.time[time]["@attributes"].to.substring(11,16);
+    //var date = weather.forecast.tabular.time[0]["@attributes"].from.substring(11,16);
+    var symbol = this.state.weather.forecast.tabular.time[time].symbol["@attributes"].name;
+    var windSpeed = this.state.weather.forecast.tabular.time[time].windSpeed["@attributes"].name;
+    var windDir = this.state.weather.forecast.tabular.time[time].windDirection["@attributes"].name.toLowerCase();
+    var iMorgen = moment().isBefore(moment(this.state.weather.forecast.tabular.time[time]["@attributes"].from, 'YYYY-MM-DD HH:mm'), 'day') > 0 ? ' i morgen' : '';
+    return from + '-' + to + iMorgen + ': ' + symbol + ', ' + windSpeed + ' fra ' + windDir;
+  }
 
   render() {
     if(this.state.toCentrum.next && this.state.fromCentrum.next){
@@ -81,9 +91,9 @@ class App extends Component {
             </div>
           </div>
           <h1>Vær i {weather.location.name}</h1>
-          <p>{weather.forecast.tabular.time[0]["@attributes"].from.substring(11,16)}-{weather.forecast.tabular.time["0"]["@attributes"].to.substring(11,16)}: {weather.forecast.tabular.time["0"].symbol["@attributes"].name}, {weather.forecast.tabular.time["0"].windSpeed["@attributes"].name} fra {weather.forecast.tabular.time["0"].windDirection["@attributes"].name.toLowerCase()}</p>
-          <p>{weather.forecast.tabular.time["1"]["@attributes"].from.substring(11,16)}-{weather.forecast.tabular.time["1"]["@attributes"].to.substring(11,16)}: {weather.forecast.tabular.time["1"].symbol["@attributes"].name}, {weather.forecast.tabular.time["1"].windSpeed["@attributes"].name} fra {weather.forecast.tabular.time["1"].windDirection["@attributes"].name.toLowerCase()}</p>
-          <p>{weather.forecast.tabular.time["2"]["@attributes"].from.substring(11,16)}-{weather.forecast.tabular.time["2"]["@attributes"].to.substring(11,16)}: {weather.forecast.tabular.time["2"].symbol["@attributes"].name}, {weather.forecast.tabular.time["2"].windSpeed["@attributes"].name} fra {weather.forecast.tabular.time["2"].windDirection["@attributes"].name.toLowerCase()}</p>
+          <p>{this.getWeather(0)}</p>
+          <p>{this.getWeather(1)}</p>
+          <p>{this.getWeather(2)}</p>
           <h1 style={{marginTop: 50}}>Til Sentrum</h1>
           <Table  condensed hover responsive>
             <tbody>
