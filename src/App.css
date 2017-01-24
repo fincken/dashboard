@@ -16,7 +16,7 @@
   padding: 20px;
 }
 
-td{
+td,th{
   font-size: 18px;
 }
 
@@ -59,6 +59,11 @@ td{
 
 .align-right {
   text-align: right;
+}
+
+.weather-image {
+  height: 30px;
+  filter: grayscale(100%);
 }
 
 @keyframes App-logo-spin {

@@ -20,7 +20,6 @@ class Bar extends Component {
         app.loadOrdersData();
         app.loadStatisticsData();
         setInterval(() => {
-            console.log('Fetching data');
             app.loadOrdersData();
             app.loadStatisticsData();
         }, 500);
@@ -44,7 +43,6 @@ class Bar extends Component {
     }
 
     render() {
-        console.log("Rendering bitches");
         var orders = this.state.orders;
         var statistics = this.state.statistics;
         var degreeSign = String.fromCharCode(parseInt("00B0", 16));
@@ -67,13 +65,20 @@ class Bar extends Component {
         return (
             <div>
                 <Table condensed responsive>
+                    <thead>
+                        <tr>
+                            <th className='col-md-4'>Person</th>
+                            <th className='col-md-5'>Drink</th>
+                            <th className='col-md-3 align-right'>Status</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         {orders.map((order) => {
                             return (
                                 <tr>
-                                    <td className='col-md-3'>{order.lastname}</td>
+                                    <td className='col-md-4'>{order.lastname}</td>
                                     <td className='col-md-5'>{order.drink_name}</td>
-                                    <td className='col-md-4 align-right'>I kø</td>
+                                    <td className='col-md-3 align-right'>I kø</td>
                                 </tr>
                             );
                         })}

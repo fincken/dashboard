@@ -22,7 +22,6 @@ class BusTable extends Component {
         var app = this;
         app.loadToStopData();
         setInterval(() => {
-            console.log('Fetching data');
             app.loadToStopData();
         }, 10000);
 
@@ -42,29 +41,31 @@ class BusTable extends Component {
         var stop = this.state.stop;
         return (
             <Table condensed responsive>
-                <tbody>
+                <thead>
                     <tr>
-                        <td className='col-md-3'>Buss</td>
-                        <td className='col-md-5'>Mot</td>
-                        <td className='col-md-4 align-right'>Ankomst</td>
+                        <th className='col-md-4'>Buss</th>
+                        <th className='col-md-5'>Mot</th>
+                        <th className='col-md-3 align-right'>Ankomst</th>
                     </tr>
+                </thead>
+                <tbody>
                     {stop.map((bus) => {
                         let arrival = new Date(bus.t.substring(6, 10) + "-" + bus.t.substring(3, 5) + "-" + bus.t.substring(0, 2) + " " + bus.t.substring(11, 13) + ":" + bus.t.substring(14, 16));
                         if (arrival - new Date() > 0) {
                             if (arrival - new Date() < 30000) {
                                 return (
                                     <tr>
-                                        <td className='col-md-3'>{bus.l}</td>
+                                        <td className='col-md-4'>{bus.l}</td>
                                         <td className='col-md-5'>{bus.d}</td>
-                                        <td className='col-md-4 align-right'>nå</td>
+                                        <td className='col-md-3 align-right'>nå</td>
                                     </tr>
                                 );
                             }
                             return (
                                 <tr>
-                                    <td className='col-md-3'>{bus.l}</td>
+                                    <td className='col-md-4'>{bus.l}</td>
                                     <td className='col-md-5'>{bus.d}</td>
-                                    <td className='col-md-4 align-right'>{moment(arrival).fromNow()}</td>
+                                    <td className='col-md-3 align-right'>{moment(arrival).fromNow()}</td>
                                 </tr>
                             );
                         }
