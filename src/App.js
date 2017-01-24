@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {BarChart, PieChart} from 'react-easy-chart';
+import {PieChart} from 'react-easy-chart';
 import {Table} from 'react-bootstrap';
 import moment from 'moment';
 import 'moment/locale/nb';
@@ -226,7 +226,6 @@ class App extends Component {
                     })}
                     </tbody>
                 </Table>
-                <div className='col-md-6'></div>
                 <div className='col-md-6'><PieChart padding={50} labels styles={{ '.chart_lines': {strokeWidth: 0},'.chart_text': {fontFamily: 'serif', fontSize: '0.1em', fill: '#fff'}}} data={data_pie} /></div>
 
             </div>
