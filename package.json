@@ -1,5 +1,6 @@
 {
   "name": "dashboard",
+  "homepage": "https://dashboard.founder.no/",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
