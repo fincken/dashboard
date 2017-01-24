@@ -53,6 +53,14 @@ td{
   align-items: flex-end;
 }
 
+.weather {
+    margin-bottom: 50px;
+}
+
+.align-right {
+  text-align: right;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
