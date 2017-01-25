@@ -13,6 +13,9 @@ class Header extends Component {
 
     componentWillMount() {
         this.loadTemperatureData();
+        setInterval(() => {
+            app.loadTemperatureData();
+        }, 10000);
     }
 
     loadTemperatureData() {

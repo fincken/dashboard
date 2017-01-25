@@ -15,8 +15,10 @@ class Weather extends Component {
     }
 
     componentWillMount() {
-        var app = this;
-        app.loadWeatherData();
+        this.loadWeatherData();
+        setInterval(() => {
+            this.loadWeatherData();
+        }, 60000);
     }
 
     loadWeatherData() {

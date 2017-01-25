@@ -1,29 +1,32 @@
 import React, {Component} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import ReactHtmlParser from 'react-html-parser';
-import {BarChart, PieChart, } from 'react-d3-basic';
+import {BarChart, PieChart} from 'react-d3-basic';
 import {Table} from 'react-bootstrap';
 import 'moment/locale/nb';
 import '../App.css';
 
 "use strict";
 
-
 class Bar extends Component {
 
     arraysEqual(a, b) {
-        return JSON.stringify(a)===JSON.stringify(b);
+        return JSON.stringify(a) === JSON.stringify(b);
     }
 
     constructor(props) {
         super(props);
 
-        this.state ={
+        this.state = {
             orders: [],
             statisticsTotal: [],
             statisticsToday: [],
             status: [],
-            trigger: [{id: 0}],
+            trigger: [
+                {
+                    id: 0
+                }
+            ]
         };
     }
 
@@ -60,18 +63,31 @@ class Bar extends Component {
 
     loadStatisticsData() {
         fetch('https://api.founder.no/bar/orders_statistics').then((response) => response.json()).then((responseJson) => {
-            if(!this.arraysEqual(responseJson,this.state.statisticsTotal)) {
-                this.setState({trigger: [{id: (this.state.trigger[0].id + 1)}], statisticsTotal: responseJson})
-            }else{
+            if (!this.arraysEqual(responseJson, this.state.statisticsTotal)) {
+                this.setState({
+                    trigger: [
+                        {
+                            id: (this.state.trigger[0].id + 1)
+                        }
+                    ],
+                    statisticsTotal: responseJson
+                })
+            } else {
                 this.setState({statisticsTotal: responseJson})
             }
         }).catch((error) => {
             console.error(error);
-        })
-        fetch('https://api.founder.no/bar/orders_statistics_today').then((response) => response.json()).then((responseJson) => {
-            if(!this.arraysEqual(responseJson,this.state.statisticsToday)) {
-                this.setState({trigger: [{id: (this.state.trigger[0].id + 1)}], statisticsToday: responseJson})
-            }else{
+        })fetch('https://api.founder.no/bar/orders_statistics_today').then((response) => response.json()).then((responseJson) => {
+            if (!this.arraysEqual(responseJson, this.state.statisticsToday)) {
+                this.setState({
+                    trigger: [
+                        {
+                            id: (this.state.trigger[0].id + 1)
+                        }
+                    ],
+                    statisticsToday: responseJson
+                })
+            } else {
                 this.setState({statisticsToday: responseJson})
             }
         }).catch((error) => {
@@ -95,18 +111,28 @@ class Bar extends Component {
         var pieChartWidth = 390,
             pieChartRadius = Math.min(pieChartWidth, pieChartWidth - 220) / 2,
             pieChartInnerRadius = 50,
-            pieChartMargins = {top: 10, bottom: 50, left: 200, right: 200},
+            pieChartMargins = {
+                top: 10,
+                bottom: 50,
+                left: 200,
+                right: 200
+            },
             pieChartShowLegend = false,
-            pieChartName = function (d) {
+            pieChartName = function(d) {
                 return d.name;
             },
-            pieChartValue = function (d) {
+            pieChartValue = function(d) {
                 return d.value;
             }
 
         var barChartWidth = 350,
             barChartHeight = 400,
-            barChartMargins = {top: 10, bottom: 100, left: 20, right: 20},
+            barChartMargins = {
+                top: 10,
+                bottom: 100,
+                left: 20,
+                right: 20
+            },
             classWhite = 'chart-white',
             barChartShowXGrid = false,
             barChartShowYGrid = false,
@@ -119,31 +145,30 @@ class Bar extends Component {
                     color: '#fff'
                 }
             ],
-            barChartName = function (d) {
+            barChartName = function(d) {
                 return d.name;
             }
 
         if (statisticsTotal.length) {
-            statisticsTotal.map(function (statistic) {
+            statisticsTotal.map(function(statistic) {
                 statisticsDataTotal.push({
                     name: statistic.firstname.charAt(0) + '. ' + statistic.lastname,
                     drinks: parseInt(statistic.count)
                 });
 
-
             })
         }
 
         if (status.length) {
-            switch (status[0].status){
+            switch (status[0].status) {
                 case 'online':
                     var imgUrl = 'https://dashboard.founder.no/images/online.png';
                     break;
             }
         }
 
-        if (statisticsToday.length){
-            statisticsToday.map(function (statistic) {
+        if (statisticsToday.length) {
+            statisticsToday.map(function(statistic) {
                 pieChartSeries.push({
                     name: statistic.lastname + ' (' + statistic.count + ')',
                     field: statistic.firstname + statistic.lastname,
@@ -174,14 +199,14 @@ class Bar extends Component {
                         {orders.map((order) => {
 
                             var status = 'I kø';
-                            if(order.processing_percent > 0){
+                            if (order.processing_percent > 0) {
                                 var count = order.processing_percent / 4.1;
-                                status= '<div style="display: inline-block; width:80%; text-align:left">';
-                                status+= Array(parseInt(count)).join(" | ");
-                                status+= '</div>';
-                                status+= '<div style="display: inline-block; width:20%; text-align:right">';
-                                status+= order.processing_percent + '%';
-                                status+= '</div>';
+                                status = '<div style="display: inline-block; width:80%; text-align:left">';
+                                status += Array(parseInt(count)).join(" | ");
+                                status += '</div>';
+                                status += '<div style="display: inline-block; width:20%; text-align:right">';
+                                status += order.processing_percent + '%';
+                                status += '</div>';
                             }
 
                             return (
@@ -196,10 +221,14 @@ class Bar extends Component {
                 </Table>
                 <Table condensed responsive>
                     <thead>
-                    <tr>
-                        <th className='col-md-6 stastistics-header'><h1>Bestilt totalt</h1></th>
-                        <th className='col-md-6 stastistics-header align-right'><h1>Dagens alkis</h1></th>
-                    </tr>
+                        <tr>
+                            <th className='col-md-6 stastistics-header'>
+                                <h1>Bestilt totalt</h1>
+                            </th>
+                            <th className='col-md-6 stastistics-header align-right'>
+                                <h1>Dagens alkis</h1>
+                            </th>
+                        </tr>
                     </thead>
                 </Table>
                 <Table condensed responsive>
@@ -208,34 +237,9 @@ class Bar extends Component {
                             return (
                                 <tr key={key.id}>
                                     <th className='col-md-6 chart-bar'>
-                                        <BarChart
-                                        width= {barChartWidth}
-                                        height= {barChartHeight}
-                                        margins = {barChartMargins}
-                                        data= {statisticsDataTotal}
-                                        chartSeries = {barChartSeries}
-                                        showLegend= {pieChartShowLegend}
-                                        showXGrid = {barChartShowXGrid}
-                                        showYGrid = {barChartShowYGrid}
-                                        svgClassName= {classWhite}
-                                        xLabel= {barChartXLabel}
-                                        xScale= {barChartXScale}
-                                        x= {barChartName}
-                                        /></th>
-                                    <th className='col-md-6 chart-pie align-right' >
-                                        <PieChart
-                                        width= {pieChartWidth}
-                                        height= {pieChartWidth}
-                                        margins = {pieChartMargins}
-                                        data= {statisticsDataToday}
-                                        chartSeries= {pieChartSeries}
-                                        radius= {pieChartRadius}
-                                        innerRadius = {pieChartInnerRadius}
-                                        showLegend= {pieChartShowLegend}
-                                        svgClassName= {classWhite}
-                                        value = {pieChartValue}
-                                        name = {pieChartName}
-                                    /></th>
+                                        <BarChart width={barChartWidth} height={barChartHeight} margins={barChartMargins} data={statisticsDataTotal} chartSeries={barChartSeries} showLegend={pieChartShowLegend} showXGrid={barChartShowXGrid} showYGrid={barChartShowYGrid} svgClassName={classWhite} xLabel={barChartXLabel} xScale={barChartXScale} x={barChartName}/></th>
+                                    <th className='col-md-6 chart-pie align-right'>
+                                        <PieChart width={pieChartWidth} height={pieChartWidth} margins={pieChartMargins} data={statisticsDataToday} chartSeries={pieChartSeries} radius={pieChartRadius} innerRadius={pieChartInnerRadius} showLegend={pieChartShowLegend} svgClassName={classWhite} value={pieChartValue} name={pieChartName}/></th>
                                 </tr>
                             );
                         })}

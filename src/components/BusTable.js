@@ -21,14 +21,14 @@ class BusTable extends Component {
 
     componentWillMount() {
         var app = this;
-        app.loadToStopData();
+        app.loadStopData();
         setInterval(() => {
-            app.loadToStopData();
+            app.loadStopData();
         }, 10000);
 
     }
 
-    loadToStopData() {
+    loadStopData() {
         fetch('https://api.founder.no/atb/stop/' + this.props.stopCode).then((response) => response.json()).then((responseJson) => {
             this.setState({
                 stop: responseJson.next.slice(0, 6)
@@ -43,11 +43,11 @@ class BusTable extends Component {
         return (
             <Table condensed responsive>
                 <thead>
-                <tr>
-                    <th className='col-md-4'>Buss</th>
-                    <th className='col-md-5'>Mot</th>
-                    <th className='col-md-3 align-right'>Ankomst</th>
-                </tr>
+                    <tr>
+                        <th className='col-md-4'>Buss</th>
+                        <th className='col-md-5'>Mot</th>
+                        <th className='col-md-3 align-right'>Ankomst</th>
+                    </tr>
                 </thead>
                 <ReactCSSTransitionGroup transitionName="animation" component="tbody" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
                     {stop.map((bus) => {
