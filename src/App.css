@@ -16,6 +16,10 @@
   padding: 20px;
 }
 
+.header{
+  margin-top:70px;
+}
+
 td,th{
   font-size: 18px;
 }

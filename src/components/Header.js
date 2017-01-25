@@ -33,7 +33,7 @@ class Header extends Component {
             temperature = weather.observations.weatherstation[0].temperature['@attributes'].value + degreeSign + 'C';
         }
         return (
-            <div className='flex-container'>
+            <div className='flex-container header'>
                 <h1 className='clock'>{now}</h1>
                 <div className='temp-container'>
                     <div style={{
