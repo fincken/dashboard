@@ -50,12 +50,12 @@ class BusTable extends Component {
                     </tr>
                 </thead>
                 <ReactCSSTransitionGroup transitionName="animation" component="tbody" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
-                    {stop.map((bus) => {
+                    {stop.length > 0 ? stop.map((bus) => {
                         let arrival = new Date(bus.t.substring(6, 10) + "-" + bus.t.substring(3, 5) + "-" + bus.t.substring(0, 2) + " " + bus.t.substring(11, 13) + ":" + bus.t.substring(14, 16));
                         if (arrival - new Date() > 0) {
                             if (arrival - new Date() < 30000) {
                                 return (
-                                    <tr key={arrival}>
+                                    <tr key={bus.l+arrival}>
                                         <td className='col-md-4'>{bus.l}</td>
                                         <td className='col-md-5'>{bus.d}</td>
                                         <td className='col-md-3 align-right'>nå</td>
@@ -63,14 +63,20 @@ class BusTable extends Component {
                                 );
                             }
                             return (
-                                <tr>
+                                <tr key={bus.l+arrival}>
                                     <td className='col-md-4'>{bus.l}</td>
                                     <td className='col-md-5'>{bus.d}</td>
                                     <td className='col-md-3 align-right'>{moment(arrival).fromNow()}</td>
                                 </tr>
                             );
                         }
-                    })}
+                    }) :
+                        <tr>
+                            <td className='col-md-4'>Ingen busser</td>
+                            <td className='col-md-5'></td>
+                            <td className='col-md-3 align-right'></td>
+                        </tr>
+                    }
                 </ReactCSSTransitionGroup>
             </Table>
         );

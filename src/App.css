@@ -147,7 +147,12 @@ status span { margin-left: 10px; text-align: right; }
   align-items: flex-end;
 }
 
-.weather, .widget-busses {
+.weather {
+  min-height: 270px !important;
+}
+
+.widget-busses {
+  min-height: 270px !important;
 }
 
 .align-right {

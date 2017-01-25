@@ -43,23 +43,28 @@ class Weather extends Component {
                             <th>Tidspunkt</th>
                             <th>Vær</th>
                             <th className='align-right'>Vind</th>
-                            {/*<td>Vindretning</td>*/}
                         </tr>
                     </thead>
                     <ReactCSSTransitionGroup transitionName="animation" component="tbody" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
-                        {weather.map((time) => {
+                        {weather.length > 0 ? weather.map((time) => {
+                            console.log(time);
                             var imgUrl = 'https://symbol.yr.no/grafikk/sym/b100/' + time.symbol["@attributes"].var + '.png';
                             return (
                                 <tr key={time["@attributes"].from.substring(11, 16) + time["@attributes"].to.substring(11, 16)}>
                                     <td className='col-md-4'>{time["@attributes"].from.substring(11, 16)}-{time["@attributes"].to.substring(11, 16)} {moment().isBefore(moment(time["@attributes"].from, 'YYYY-MM-DD HH:mm'), 'day') > 0
                                             ? ' i morgen'
                                             : ''}</td>
-                                    <td className='col-md-5'><img alt="Weather" src={imgUrl} className='weather-image'/></td>
+                                    <td className='col-md-5'><img alt="Weather" src={imgUrl} className='weather-image'/> {time.temperature["@attributes"].value}&deg;C</td>
                                     <td className='col-md-3 align-right'>{time.windSpeed["@attributes"].name}, {time.windSpeed["@attributes"].mps}m/s</td>
-                                    {/*<td className='col-md-3'>fra {time.windDirection["@attributes"].name.toLowerCase()}</td>*/}
-                                </tr>
+                                 </tr>
                             );
-                        })}
+                        }) :
+                            <tr key='empty'>
+                                <td className='col-md-4'>Ingen prognoser tilgjengelig</td>
+                                <td className='col-md-5'></td>
+                                <td className='col-md-3 align-right'></td>
+                            </tr>
+                        }
                     </ReactCSSTransitionGroup>
                 </Table>
             </div>

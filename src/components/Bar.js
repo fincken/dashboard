@@ -55,7 +55,6 @@ class Bar extends Component {
     loadBarStatusData() {
         fetch('https://api.founder.no/bar/status').then((response) => response.json()).then((responseJson) => {
             this.setState({status: responseJson});
-            console.log(responseJson);
         }).catch((error) => {
             console.error(error);
         })
@@ -107,7 +106,6 @@ class Bar extends Component {
         var statisticsDataTotal = []
         var statisticsDataToday = [];
         var pieChartSeries = [];
-        var statusHtml = 'AV';
 
         var pieChartWidth = 390,
             pieChartRadius = Math.min(pieChartWidth, pieChartWidth - 220) / 2,
@@ -163,7 +161,7 @@ class Bar extends Component {
         if (status.length) {
             switch (status[0].status) {
                 case 'online':
-                    var imgUrl = 'https://dashboard.founder.no/images/online.png';
+                    imgUrl = 'https://dashboard.founder.no/images/online.png';
                     break;
             }
         }
@@ -197,8 +195,7 @@ class Bar extends Component {
                         </tr>
                     </thead>
                     <ReactCSSTransitionGroup transitionName="animation" component="tbody" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
-                        {orders.map((order) => {
-
+                        {orders.length > 0 ? orders.map((order) => {
                             var status = 'I kø';
                             if (order.processing_percent > 0) {
                                 var count = order.processing_percent / 4.1;
@@ -209,7 +206,6 @@ class Bar extends Component {
                                 status += order.processing_percent + '%';
                                 status += '</div>';
                             }
-
                             return (
                                 <tr key={order.lastname + order.created}>
                                     <td className='col-md-4'>{order.firstname.charAt(0)}. {order.lastname}</td>
@@ -217,7 +213,13 @@ class Bar extends Component {
                                     <td className='col-md-4 align-right'>{ReactHtmlParser(status)}</td>
                                 </tr>
                             );
-                        })}
+                        }) :
+                            <tr key='empty'>
+                                <td className='col-md-4'>Ingen nye ordre</td>
+                                <td className='col-md-4'></td>
+                                <td className='col-md-4 align-right'></td>
+                            </tr>
+                        }
                     </ReactCSSTransitionGroup>
                 </Table>
                 <Table condensed responsive>
