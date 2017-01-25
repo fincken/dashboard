@@ -43,11 +43,11 @@ class BusTable extends Component {
         return (
             <Table condensed responsive>
                 <thead>
-                    <tr>
-                        <th className='col-md-4'>Buss</th>
-                        <th className='col-md-5'>Mot</th>
-                        <th className='col-md-3 align-right'>Ankomst</th>
-                    </tr>
+                <tr>
+                    <th className='col-md-4'>Buss</th>
+                    <th className='col-md-5'>Mot</th>
+                    <th className='col-md-3 align-right'>Ankomst</th>
+                </tr>
                 </thead>
                 <ReactCSSTransitionGroup transitionName="animation" component="tbody" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
                     {stop.map((bus) => {

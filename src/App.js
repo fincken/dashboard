@@ -13,10 +13,12 @@ class App extends Component {
             <div className='container'>
                 <Header></Header>
                 <Weather></Weather>
-                <h1>Til Sentrum</h1>
-                <BusTable stopCode='16011404'></BusTable>
-                <h1>Fra Sentrum</h1>
-                <BusTable stopCode='16010404'></BusTable>
+                <div className="widget-busses">
+                    <h1>Til Sentrum</h1>
+                    <BusTable stopCode='16011404'></BusTable>
+                    <h1>Fra Sentrum</h1>
+                    <BusTable stopCode='16010404'></BusTable>
+                </div>
                 <h1>Fra baren</h1>
                 <Bar></Bar>
             </div>

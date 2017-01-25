@@ -87,7 +87,7 @@ text.react-d3-core__label.label{
 }
 
 .stastistics-header{
-  padding-top:60px !important;
+  padding-top:40px !important;
   border-bottom: 0px !important;
 }
 
@@ -136,7 +136,7 @@ text.react-d3-core__label.label{
   align-items: flex-end;
 }
 
-.weather {
+.weather, .widget-busses {
     margin-bottom: 50px;
 }
 
