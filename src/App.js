@@ -19,7 +19,6 @@ class App extends Component {
                     <h1>Fra Sentrum</h1>
                     <BusTable stopCode='16010404'></BusTable>
                 </div>
-                <h1>Fra baren</h1>
                 <Bar></Bar>
             </div>
         )

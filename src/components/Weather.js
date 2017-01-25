@@ -32,7 +32,6 @@ class Weather extends Component {
 
     render() {
         var weather = this.state.weather;
-        console.log(weather);
         return (
             <div className='weather'>
                 <h1>Vær i {this.state.location}</h1>

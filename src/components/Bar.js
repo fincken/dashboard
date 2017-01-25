@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import ReactHtmlParser from 'react-html-parser';
 import {BarChart, PieChart, } from 'react-d3-basic';
 import {Table} from 'react-bootstrap';
 import 'moment/locale/nb';
@@ -21,6 +22,7 @@ class Bar extends Component {
             orders: [],
             statisticsTotal: [],
             statisticsToday: [],
+            status: [],
             trigger: [{id: 0}],
         };
     }
@@ -28,18 +30,29 @@ class Bar extends Component {
     componentWillMount() {
         var app = this;
         app.loadOrdersData();
+        app.loadBarStatusData();
         app.loadStatisticsData();
         setInterval(() => {
             app.loadOrdersData();
         }, 500);
         setInterval(() => {
             app.loadStatisticsData();
+            app.loadBarStatusData();
         }, 5000);
     }
 
     loadOrdersData() {
         fetch('https://api.founder.no/bar/orders_get').then((response) => response.json()).then((responseJson) => {
             this.setState({orders: responseJson});
+        }).catch((error) => {
+            console.error(error);
+        })
+    }
+
+    loadBarStatusData() {
+        fetch('https://api.founder.no/bar/status').then((response) => response.json()).then((responseJson) => {
+            this.setState({status: responseJson});
+            console.log(responseJson);
         }).catch((error) => {
             console.error(error);
         })
@@ -69,12 +82,15 @@ class Bar extends Component {
     render() {
         var trigger = this.state.trigger;
         var orders = this.state.orders;
+        var status = this.state.status;
         var statisticsTotal = this.state.statisticsTotal;
         var statisticsToday = this.state.statisticsToday;
+        var imgUrl = 'https://dashboard.founder.no/images/offline.png';
 
         var statisticsDataTotal = []
         var statisticsDataToday = [];
         var pieChartSeries = [];
+        var statusHtml = 'AV';
 
         var pieChartWidth = 390,
             pieChartRadius = Math.min(pieChartWidth, pieChartWidth - 220) / 2,
@@ -118,6 +134,14 @@ class Bar extends Component {
             })
         }
 
+        if (status.length) {
+            switch (status[0].status){
+                case 'online':
+                    var imgUrl = 'https://dashboard.founder.no/images/online.png';
+                    break;
+            }
+        }
+
         if (statisticsToday.length){
             statisticsToday.map(function (statistic) {
                 pieChartSeries.push({
@@ -134,6 +158,10 @@ class Bar extends Component {
 
         return (
             <div>
+                <status>
+                    <h1>Ordre i baren</h1>
+                    <span><img alt="Power" src={imgUrl} className="weather-image bar-image"/></span>
+                </status>
                 <Table condensed responsive>
                     <thead>
                         <tr>
@@ -147,17 +175,20 @@ class Bar extends Component {
 
                             var status = 'I kø';
                             if(order.processing_percent > 0){
-                                var count = order.processing_percent / 5;
-                                status = Array(parseInt(count)).join(" | ");
+                                var count = order.processing_percent / 4.1;
+                                status= '<div style="display: inline-block; width:80%; text-align:left">';
+                                status+= Array(parseInt(count)).join(" | ");
+                                status+= '</div>';
+                                status+= '<div style="display: inline-block; width:20%; text-align:right">';
                                 status+= order.processing_percent + '%';
+                                status+= '</div>';
                             }
-                            console.log(order);
 
                             return (
                                 <tr key={order.lastname + order.created}>
                                     <td className='col-md-4'>{order.firstname.charAt(0)}. {order.lastname}</td>
                                     <td className='col-md-4'>{order.drink_name}</td>
-                                    <td className='col-md-4 align-right'>{status}</td>
+                                    <td className='col-md-4 align-right'>{ReactHtmlParser(status)}</td>
                                 </tr>
                             );
                         })}
@@ -167,7 +198,7 @@ class Bar extends Component {
                     <thead>
                     <tr>
                         <th className='col-md-6 stastistics-header'><h1>Bestilt totalt</h1></th>
-                        <th className='col-md-6 stastistics-header'><h1>Bestilt i dag</h1></th>
+                        <th className='col-md-6 stastistics-header align-right'><h1>Dagens alkis</h1></th>
                     </tr>
                     </thead>
                 </Table>
@@ -191,7 +222,7 @@ class Bar extends Component {
                                         xScale= {barChartXScale}
                                         x= {barChartName}
                                         /></th>
-                                    <th className='col-md-6 chart-pie' >
+                                    <th className='col-md-6 chart-pie align-right' >
                                         <PieChart
                                         width= {pieChartWidth}
                                         height= {pieChartWidth}

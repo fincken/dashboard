@@ -1,3 +1,7 @@
+.container {
+  max-width: 900px !important;
+}
+
 .App {
   text-align: center;
   background-color: black;
@@ -17,7 +21,7 @@
 }
 
 .header{
-  margin-top:70px;
+  margin-top:10px;
 }
 
 td,th{
@@ -87,7 +91,7 @@ text.react-d3-core__label.label{
 }
 
 .stastistics-header{
-  padding-top:40px !important;
+  padding-top:20px !important;
   border-bottom: 0px !important;
 }
 
@@ -120,6 +124,13 @@ text.react-d3-core__label.label{
   display:none;
 }
 
+status > h1 { display: inline-block; }
+status span { margin-left: 10px; text-align: right; }
+
+.bar-image{
+  margin-bottom:12px;
+}
+
 .animation-leave {
   opacity: 1;
 }
@@ -137,7 +148,7 @@ text.react-d3-core__label.label{
 }
 
 .weather, .widget-busses {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .align-right {
