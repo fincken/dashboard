@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import d3, {Chart} from 'react-d3-core';
 import {PieChart} from 'react-easy-chart';
-import {Table} from 'react-bootstrap';
-import moment from 'moment';
 import 'moment/locale/nb';
 import Header from './components/Header.js';
 import Weather from './components/Weather.js';

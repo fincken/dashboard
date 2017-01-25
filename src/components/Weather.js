@@ -1,5 +1,6 @@
 import React, {Component, Image} from 'react';
 import {Table} from 'react-bootstrap';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import moment from 'moment';
 import 'moment/locale/nb';
 import '../App.css';
@@ -46,9 +47,9 @@ class Weather extends Component {
                             {/*<td>Vindretning</td>*/}
                         </tr>
                     </thead>
-                    <tbody>
+                    <ReactCSSTransitionGroup transitionName="animation" component="tbody" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
                         {weather.map((time) => {
-                            var imgUrl = 'http://symbol.yr.no/grafikk/sym/b100/' + time.symbol["@attributes"].var + '.png';
+                            var imgUrl = 'https://symbol.yr.no/grafikk/sym/b100/' + time.symbol["@attributes"].var + '.png';
                             console.log(imgUrl);
                             return (
                                 <tr>
@@ -61,7 +62,7 @@ class Weather extends Component {
                                 </tr>
                             );
                         })}
-                    </tbody>
+                    </ReactCSSTransitionGroup>
                 </Table>
             </div>
         );

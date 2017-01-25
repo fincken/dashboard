@@ -26,12 +26,65 @@ td,th{
   color: white;
 }
 
+.chart-white line{
+  stroke: white !important;
+}
+
+.chart-white path{
+  stroke: white !important;
+}
+
+.chart-white text{
+  fill: white !important;
+}
+
+.axis > text{
+  transform: translate(-65)  !important;
+}
+
+.x text {
+  transform: translateX(-65%) rotate(-22deg) !important;
+}
+
+.chart-white path {
+  stroke: black !important;
+}
+
+.chart-pie text {
+  font-size: 12px;
+}
+
+g.react-d3-core__axis__xAxis.axis.x text{
+  -webkit-transform: translateY(25px) translateX(-20px) rotate(-30deg) !important;
+  -ms-transform: translateY(25px) translateX(-20px) rotate(-30deg) !important;
+  transform: translateY(25px) translateX(-20px) rotate(-30deg) !important;
+}
+
+text.react-d3-core__label.label{
+  transform: translateY(50px) !important;
+}
+
+.chart-header-background.legend {
+  background-color: #000 !important;
+}
+
+.chart-header-background.legend {
+  font-size: 12px;
+  -webkit-transform: translateX(-23px) !important;
+  -ms-transform: translateX(-23px) !important;
+  transform: translateX(-23px) !important;
+}
 
 .Bus-table {
   background-color: black;
   height: 400px;
   font-size: 50px;
   color: white;
+}
+
+.stastistics-header{
+  padding-top:60px !important;
+  border-bottom: 0px !important;
 }
 
 .clock {
@@ -44,6 +97,32 @@ td,th{
   flex-direction: row;
   align-items: flex-start;;
   justify-content: space-between;
+}
+
+.animation{
+  min-width:100% !important;
+}
+
+.animation-enter {
+  opacity: 0.01;
+}
+
+.animation-enter.animation-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.hidden{
+  display:none;
+}
+
+.animation-leave {
+  opacity: 1;
+}
+
+.animation-leave.animation-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
 }
 
 .temp-container {

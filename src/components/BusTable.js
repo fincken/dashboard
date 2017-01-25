@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Table} from 'react-bootstrap';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import moment from 'moment';
 import 'moment/locale/nb';
 import '../App.css';
@@ -48,7 +49,7 @@ class BusTable extends Component {
                         <th className='col-md-3 align-right'>Ankomst</th>
                     </tr>
                 </thead>
-                <tbody>
+                <ReactCSSTransitionGroup transitionName="animation" component="tbody" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
                     {stop.map((bus) => {
                         let arrival = new Date(bus.t.substring(6, 10) + "-" + bus.t.substring(3, 5) + "-" + bus.t.substring(0, 2) + " " + bus.t.substring(11, 13) + ":" + bus.t.substring(14, 16));
                         if (arrival - new Date() > 0) {
@@ -70,7 +71,7 @@ class BusTable extends Component {
                             );
                         }
                     })}
-                </tbody>
+                </ReactCSSTransitionGroup>
             </Table>
         );
     }
