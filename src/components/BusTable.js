@@ -31,7 +31,7 @@ class BusTable extends Component {
     loadStopData() {
         fetch('https://api.founder.no/atb/stop/' + this.props.stopCode).then((response) => response.json()).then((responseJson) => {
             this.setState({
-                stop: responseJson.next.slice(0, 6)
+                stop: responseJson.next.slice(0, 5)
             });
         }).catch((error) => {
             //console.error(error);

@@ -24,7 +24,7 @@ class Weather extends Component {
     loadWeatherData() {
         fetch('https://api.founder.no/yr/weather').then((response) => response.json()).then((responseJson) => {
             this.setState({
-                weather: responseJson.forecast.tabular.time.slice(0, 5),
+                weather: responseJson.forecast.tabular.time.slice(0, 4),
                 location: responseJson.location.name
             });
         }).catch((error) => {
