@@ -8,7 +8,7 @@ import '../App.css';
 class BusTable extends Component {
     constructor(props) {
         super(props);
-        moment.updateLocale('nb-fix', {
+        moment.defineLocale('nb-fix', {
             parentLocale: 'nb',
             relativeTime: {
                 future: ' %s'
