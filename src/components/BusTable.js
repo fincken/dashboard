@@ -8,7 +8,7 @@ import '../App.css';
 class BusTable extends Component {
     constructor(props) {
         super(props);
-        moment.defineLocale('nb-fix', {
+        moment.updateLocale('nb-fix', {
             parentLocale: 'nb',
             relativeTime: {
                 future: ' %s'
@@ -55,7 +55,7 @@ class BusTable extends Component {
                         if (arrival - new Date() > 0) {
                             if (arrival - new Date() < 30000) {
                                 return (
-                                    <tr>
+                                    <tr key={arrival}>
                                         <td className='col-md-4'>{bus.l}</td>
                                         <td className='col-md-5'>{bus.d}</td>
                                         <td className='col-md-3 align-right'>nå</td>

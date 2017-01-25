@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import TransitionGroup from 'react-addons-transition-group';
-import D3, {BarChart, PieChart, Color} from 'react-d3-basic';
-import {Table, Grid, Row, Col} from 'react-bootstrap';
+import {BarChart, PieChart, } from 'react-d3-basic';
+import {Table} from 'react-bootstrap';
 import 'moment/locale/nb';
 import '../App.css';
 
@@ -12,13 +11,13 @@ import '../App.css';
 class Bar extends Component {
 
     arraysEqual(a, b) {
-        return JSON.stringify(a)==JSON.stringify(b);
+        return JSON.stringify(a)===JSON.stringify(b);
     }
 
     constructor(props) {
         super(props);
 
-        this.state = {
+        this.state ={
             orders: [],
             statisticsTotal: [],
             statisticsToday: [],
@@ -139,17 +138,26 @@ class Bar extends Component {
                     <thead>
                         <tr>
                             <th className='col-md-4'>Person</th>
-                            <th className='col-md-5'>Drink</th>
-                            <th className='col-md-3 align-right'>Status</th>
+                            <th className='col-md-4'>Drink</th>
+                            <th className='col-md-4 align-right'>Status</th>
                         </tr>
                     </thead>
                     <ReactCSSTransitionGroup transitionName="animation" component="tbody" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
                         {orders.map((order) => {
+
+                            var status = 'I kø';
+                            if(order.processing_percent > 0){
+                                var count = order.processing_percent / 5;
+                                status = Array(parseInt(count)).join(" | ");
+                                status+= order.processing_percent + '%';
+                            }
+                            console.log(order);
+
                             return (
-                                <tr>
+                                <tr key={order.lastname + order.created}>
                                     <td className='col-md-4'>{order.firstname.charAt(0)}. {order.lastname}</td>
-                                    <td className='col-md-5'>{order.drink_name}</td>
-                                    <td className='col-md-3 align-right'>I kø</td>
+                                    <td className='col-md-4'>{order.drink_name}</td>
+                                    <td className='col-md-4 align-right'>{status}</td>
                                 </tr>
                             );
                         })}

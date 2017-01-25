@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {PieChart} from 'react-easy-chart';
 import 'moment/locale/nb';
 import Header from './components/Header.js';
 import Weather from './components/Weather.js';
