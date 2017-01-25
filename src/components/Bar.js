@@ -77,7 +77,8 @@ class Bar extends Component {
             }
         }).catch((error) => {
             console.error(error);
-        })fetch('https://api.founder.no/bar/orders_statistics_today').then((response) => response.json()).then((responseJson) => {
+        });
+        fetch('https://api.founder.no/bar/orders_statistics_today').then((response) => response.json()).then((responseJson) => {
             if (!this.arraysEqual(responseJson, this.state.statisticsToday)) {
                 this.setState({
                     trigger: [
