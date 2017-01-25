@@ -15,7 +15,7 @@ class App extends Component {
                 <Weather></Weather>
                 <div className="widget-busses">
                     <h1>Til Sentrum</h1>
-                    <BusTable stopCode='16011404'></BusTable> 
+                    <BusTable stopCode='16011404'></BusTable>
 				</div> 
                 <div className="widget-busses">
                     <h1>Fra Sentrum</h1>

@@ -37,7 +37,7 @@ td,th{
 .chart-white line{
   stroke: white !important;
 }
-
+ 
 .chart-white path{
   stroke: white !important;
 }
@@ -60,6 +60,10 @@ td,th{
 
 .chart-pie text {
   font-size: 12px;
+}
+
+.chart-bar, .chart-pie{
+  border-bottom:0px !important;
 }
 
 g.react-d3-core__axis__xAxis.axis.x text{
