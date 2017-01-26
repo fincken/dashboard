@@ -166,7 +166,7 @@ class Bar extends Component {
             })
         }
 
-        if (status.length) {
+        if (status.length) { 
             switch (status[0].status) {
                 case 'online':
                     imgUrl = 'https://dashboard.founder.no/images/online.png';
