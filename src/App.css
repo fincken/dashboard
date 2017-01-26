@@ -141,15 +141,11 @@ status span { margin-left: 10px; text-align: right; }
   transition: opacity 300ms ease-in;
 }
 
-.temp-container {
-  margin-top: 32px;
+.song-container {
+  margin-top: 42px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-
-.weather {
-  min-height: 270px !important;
 }
 
 .widget-busses {
@@ -165,7 +161,47 @@ status span { margin-left: 10px; text-align: right; }
   filter: grayscale(100%);
 }
 
+.spotify-image {
+  height: 100px;
+  filter: grayscale(100%);
+}
+
+.weather {
+  min-height: 270px !important;
+}
+
+.temperatures{
+  padding-bottom:20px;
+}
+
+.temperature{
+  text-align: right;
+  font-size: 19px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+/*
+Spotify
+ */
+
+.song-title{
+  font-size:18px;
+  padding-left:20px;
+}
+
+.song-subtitle{
+  font-size:12px;
+  padding-left:20px;
+}
+
+.song-icon-container{
+  padding-left:20px;
+}
+
+.song-icon{
+  height:15px;
 }

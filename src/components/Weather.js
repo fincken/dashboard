@@ -10,6 +10,7 @@ class Weather extends Component {
         super(props);
         this.state = {
             weather: [],
+            temperature: [],
             location: ''
         }
     }
@@ -24,6 +25,7 @@ class Weather extends Component {
     loadWeatherData() {
         fetch('https://api.founder.no/yr/weather').then((response) => response.json()).then((responseJson) => {
             this.setState({
+                temperature: responseJson,
                 weather: responseJson.forecast.tabular.time.slice(0, 4),
                 location: responseJson.location.name
             });
@@ -33,10 +35,25 @@ class Weather extends Component {
     }
 
     render() {
+        var temp;
+        var temperature = this.state.temperature;
         var weather = this.state.weather;
+        if (temperature.observations) {
+            temp = temperature.observations.weatherstation[0].temperature['@attributes'].value;
+        }
+
         return (
             <div className='weather'>
-                <h1>Vær i {this.state.location}</h1>
+                <div className="flex-container weather-header">
+                    <div>
+                        <h1>Vær i {this.state.location}</h1>
+                    </div>
+                    <div className="temperatures">
+                        <div className="temperature">Ute: {temp}&deg;C</div>
+                        <div className="temperature">Inne: 22&deg;C</div>
+                    </div>
+                </div>
+
                 <Table condensed responsive>
                     <thead>
                         <tr>
@@ -47,7 +64,6 @@ class Weather extends Component {
                     </thead>
                     <ReactCSSTransitionGroup transitionName="animation" component="tbody" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
                         {weather.length > 0 ? weather.map((time) => {
-                            console.log(time);
                             var imgUrl = 'https://symbol.yr.no/grafikk/sym/b100/' + time.symbol["@attributes"].var + '.png';
                             return (
                                 <tr key={time["@attributes"].from.substring(11, 16) + time["@attributes"].to.substring(11, 16)}>
