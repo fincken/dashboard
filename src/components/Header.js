@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import moment from 'moment';
+import SpotifyCurrentlyPlaying from '../external/spotifyCurrentlyPlaying.js'
 import 'moment/locale/nb';
 import '../App.css';
 
@@ -16,6 +17,16 @@ class Header extends Component {
         setInterval(() => {
             this.loadTemperatureData();
         }, 10000);
+
+        // You will need to pass your parameters to the function
+        // You can initialize it with SCP() or SpotifyCurrentlyPlaying()
+        SpotifyCurrentlyPlaying({
+            selector: '#spotify-widget',
+            username: 'mjansrud',
+            api_key: 'de818d0d0a7f78432fca3f60e10955d0',
+            width: '100%',
+            height: '80'
+        });
     }
 
     loadTemperatureData() {
@@ -37,8 +48,8 @@ class Header extends Component {
         }
         return (
             <div className='flex-container header'>
-                <h1 className='clock'>{now}</h1>
                 <div className='temp-container'>
+                    <div id="spotify-widget"></div>
                     <div style={{
                         textAlign: 'center',
                         fontSize: 22
@@ -48,6 +59,7 @@ class Header extends Component {
                         fontSize: 22
                     }}>ute: {temperature}</div>
                 </div>
+                <h1 className='clock'>{now}</h1>
             </div>
         );
     }

@@ -1,18 +1,12 @@
-body{
-  overflow: hidden !important;
-}
-
 .container {
   max-width: 900px !important;
 }
 
 .App {
   text-align: center;
-  background-color: black;
 }
 
 .App-header {
-  background-color: black;
   height: 50px;
   padding: 20px;
   color: white;
@@ -20,7 +14,6 @@ body{
 
 .container{
   max-width: 800px;
-  background-color: black;
   padding: 20px;
 }
 
@@ -152,7 +145,7 @@ status span { margin-left: 10px; text-align: right; }
   margin-top: 32px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .weather {

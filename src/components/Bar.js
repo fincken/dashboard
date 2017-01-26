@@ -3,6 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import ReactHtmlParser from 'react-html-parser';
 import {BarChart, PieChart} from 'react-d3-basic';
 import {Table} from 'react-bootstrap';
+//import {LastFM} from 'lastfmapi';
 import 'moment/locale/nb';
 import '../App.css';
 
@@ -42,6 +43,13 @@ class Bar extends Component {
             app.loadStatisticsData();
             app.loadBarStatusData();
         }, 5000);
+
+        /*
+        var LFM = new LastFM({
+            'api_key' : '78956cb049e44d830f0de6f29caafc0c',
+            'secret' : '198c3d7f7661806c98199256dbf3859e'
+        });
+        */
     }
 
     loadOrdersData() {
@@ -180,6 +188,7 @@ class Bar extends Component {
             })
         }
 
+
         return (
             <div>
                 <status>
@@ -240,9 +249,11 @@ class Bar extends Component {
                             return (
                                 <tr key={key.id}>
                                     <th className='col-md-6 chart-bar'>
-                                        <BarChart width={barChartWidth} height={barChartHeight} margins={barChartMargins} data={statisticsDataTotal} chartSeries={barChartSeries} showLegend={pieChartShowLegend} showXGrid={barChartShowXGrid} showYGrid={barChartShowYGrid} svgClassName={classWhite} xLabel={barChartXLabel} xScale={barChartXScale} x={barChartName}/></th>
+                                        <BarChart width={barChartWidth} height={barChartHeight} margins={barChartMargins} data={statisticsDataTotal} chartSeries={barChartSeries} showLegend={pieChartShowLegend} showXGrid={barChartShowXGrid} showYGrid={barChartShowYGrid} svgClassName={classWhite} xLabel={barChartXLabel} xScale={barChartXScale} x={barChartName}/>
+                                    </th>
                                     <th className='col-md-6 chart-pie align-right'>
-                                        <PieChart width={pieChartWidth} height={pieChartWidth} margins={pieChartMargins} data={statisticsDataToday} chartSeries={pieChartSeries} radius={pieChartRadius} innerRadius={pieChartInnerRadius} showLegend={pieChartShowLegend} svgClassName={classWhite} value={pieChartValue} name={pieChartName}/></th>
+                                        <PieChart width={pieChartWidth} height={pieChartWidth} margins={pieChartMargins} data={statisticsDataToday} chartSeries={pieChartSeries} radius={pieChartRadius} innerRadius={pieChartInnerRadius} showLegend={pieChartShowLegend} svgClassName={classWhite} value={pieChartValue} name={pieChartName}/>
+                                    </th>
                                 </tr>
                             );
                         })}
@@ -251,7 +262,6 @@ class Bar extends Component {
             </div>
 
         );
-
     }
 }
 
