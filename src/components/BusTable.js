@@ -49,7 +49,7 @@ class BusTable extends Component {
                         <th className='col-md-3 align-right'>Ankomst</th>
                     </tr>
                 </thead>
-                <ReactCSSTransitionGroup transitionName="animation" component="tbody" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
+                <tbody>
                     {stop.length > 0 ? stop.map((bus) => {
                         let arrival = new Date(bus.t.substring(6, 10) + "-" + bus.t.substring(3, 5) + "-" + bus.t.substring(0, 2) + " " + bus.t.substring(11, 13) + ":" + bus.t.substring(14, 16));
                         if (arrival - new Date() > 0) {
@@ -77,7 +77,7 @@ class BusTable extends Component {
                             <td className='col-md-3 align-right'></td>
                         </tr>
                     }
-                </ReactCSSTransitionGroup>
+                </tbody>
             </Table>
         );
     }

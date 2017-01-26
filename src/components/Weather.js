@@ -62,7 +62,7 @@ class Weather extends Component {
                             <th className='align-right'>Vind</th>
                         </tr>
                     </thead>
-                    <ReactCSSTransitionGroup transitionName="animation" component="tbody" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
+                    <tbody>
                         {weather.length > 0 ? weather.map((time) => {
                             var imgUrl = 'https://symbol.yr.no/grafikk/sym/b100/' + time.symbol["@attributes"].var + '.png';
                             return (
@@ -81,7 +81,7 @@ class Weather extends Component {
                                 <td className='col-md-3 align-right'></td>
                             </tr>
                         }
-                    </ReactCSSTransitionGroup>
+                    </tbody>
                 </Table>
             </div>
         );
