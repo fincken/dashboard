@@ -149,7 +149,7 @@ status span { margin-left: 10px; text-align: right; }
 }
 
 .widget-busses {
-  min-height: 270px !important;
+  min-height: 285px !important; 
 }
 
 .align-right {

@@ -202,7 +202,7 @@ class Bar extends Component {
                             <th className='col-md-4'>Drink</th>
                             <th className='col-md-4 align-right'>Status</th>
                         </tr>
-                    </thead> 
+                    </thead>
                     <ReactCSSTransitionGroup transitionName="animation" component="tbody" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
                         {orders.length > 0 ? orders.map((order) => {
                             var status = 'I kø';
