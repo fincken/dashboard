@@ -169,7 +169,7 @@ class Bar extends Component {
         if (statisticsToday.length) {
             statisticsToday.map(function(statistic) {
                 pieChartSeries.push({
-                    name: statistic.lastname + ' (' + statistic.count + ')',
+                    name: statistic.firstname.charAt(0) + '. ' + statistic.lastname + ' (' + statistic.count + ')',
                     field: statistic.firstname + statistic.lastname,
                     color: '#fff'
                 })
