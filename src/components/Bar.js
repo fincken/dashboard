@@ -3,17 +3,12 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import ReactHtmlParser from 'react-html-parser';
 import {BarChart, PieChart} from 'react-d3-basic';
 import {Table} from 'react-bootstrap';
-//import {LastFM} from 'lastfmapi';
 import 'moment/locale/nb';
 import '../App.css';
 
 "use strict";
 
 class Bar extends Component {
-
-    arraysEqual(a, b) {
-        return JSON.stringify(a) === JSON.stringify(b);
-    }
 
     constructor(props) {
         super(props);
@@ -22,12 +17,7 @@ class Bar extends Component {
             orders: [],
             statisticsTotal: [],
             statisticsToday: [],
-            status: [],
-            trigger: [
-                {
-                    id: 0
-                }
-            ]
+            status: []
         };
     }
 
@@ -43,13 +33,6 @@ class Bar extends Component {
             app.loadStatisticsData();
             app.loadBarStatusData();
         }, 5000);
-
-        /*
-        var LFM = new LastFM({
-            'api_key' : '78956cb049e44d830f0de6f29caafc0c',
-            'secret' : '198c3d7f7661806c98199256dbf3859e'
-        });
-        */
     }
 
     loadOrdersData() {
@@ -70,41 +53,18 @@ class Bar extends Component {
 
     loadStatisticsData() {
         fetch('https://api.founder.no/bar/orders_statistics').then((response) => response.json()).then((responseJson) => {
-            if (!this.arraysEqual(responseJson, this.state.statisticsTotal)) {
-                this.setState({
-                    trigger: [
-                        {
-                            id: (this.state.trigger[0].id + 1)
-                        }
-                    ],
-                    statisticsTotal: responseJson
-                })
-            } else {
-                this.setState({statisticsTotal: responseJson})
-            }
+                this.setState({statisticsTotal: responseJson});
         }).catch((error) => {
             console.error(error);
         });
         fetch('https://api.founder.no/bar/orders_statistics_today').then((response) => response.json()).then((responseJson) => {
-            if (!this.arraysEqual(responseJson, this.state.statisticsToday)) {
-                this.setState({
-                    trigger: [
-                        {
-                            id: (this.state.trigger[0].id + 1)
-                        }
-                    ],
-                    statisticsToday: responseJson
-                })
-            } else {
-                this.setState({statisticsToday: responseJson})
-            }
+                this.setState({statisticsToday: responseJson});
         }).catch((error) => {
             console.error(error);
         })
     }
 
     render() {
-        var trigger = this.state.trigger;
         var orders = this.state.orders;
         var status = this.state.status;
         var statisticsTotal = this.state.statisticsTotal;
@@ -207,7 +167,7 @@ class Bar extends Component {
                         {orders.length > 0 ? orders.map((order) => {
                             var status = 'I kø';
                             if (order.processing_percent > 0) {
-                                var count = order.processing_percent / 4.1;
+                                var count = order.processing_percent / 5;
                                 status = '<div style="display: inline-block; width:80%; text-align:left">';
                                 status += Array(parseInt(count)).join(" | ");
                                 status += '</div>';
@@ -244,20 +204,16 @@ class Bar extends Component {
                     </thead>
                 </Table>
                 <Table condensed responsive>
-                    <ReactCSSTransitionGroup transitionName="animation" component="thead" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
-                        {trigger.map((key) => {
-                            return (
-                                <tr key={key.id}>
-                                    <th className='col-md-6 chart-bar'>
-                                        <BarChart width={barChartWidth} height={barChartHeight} margins={barChartMargins} data={statisticsDataTotal} chartSeries={barChartSeries} showLegend={pieChartShowLegend} showXGrid={barChartShowXGrid} showYGrid={barChartShowYGrid} svgClassName={classWhite} xLabel={barChartXLabel} xScale={barChartXScale} x={barChartName}/>
-                                    </th>
-                                    <th className='col-md-6 chart-pie align-right'>
-                                        <PieChart width={pieChartWidth} height={pieChartWidth} margins={pieChartMargins} data={statisticsDataToday} chartSeries={pieChartSeries} radius={pieChartRadius} innerRadius={pieChartInnerRadius} showLegend={pieChartShowLegend} svgClassName={classWhite} value={pieChartValue} name={pieChartName}/>
-                                    </th>
-                                </tr>
-                            );
-                        })}
-                    </ReactCSSTransitionGroup>
+                    <thead>
+                        <tr key='charts'>
+                            <th className='col-md-6 chart-bar'>
+                                <BarChart width={barChartWidth} height={barChartHeight} margins={barChartMargins} data={statisticsDataTotal} chartSeries={barChartSeries} showLegend={pieChartShowLegend} showXGrid={barChartShowXGrid} showYGrid={barChartShowYGrid} svgClassName={classWhite} xLabel={barChartXLabel} xScale={barChartXScale} x={barChartName}/>
+                            </th>
+                            <th className='col-md-6 chart-pie align-right'>
+                                <PieChart width={pieChartWidth} height={pieChartWidth} margins={pieChartMargins} data={statisticsDataToday} chartSeries={pieChartSeries} radius={pieChartRadius} innerRadius={pieChartInnerRadius} showLegend={pieChartShowLegend} svgClassName={classWhite} value={pieChartValue} name={pieChartName}/>
+                            </th>
+                        </tr>
+                    </thead>
                 </Table>
             </div>
 
