@@ -70,7 +70,7 @@ class Weather extends Component {
                                     <td className='col-md-4'>{time["@attributes"].from.substring(11, 16)}-{time["@attributes"].to.substring(11, 16)} {moment().isBefore(moment(time["@attributes"].from, 'YYYY-MM-DD HH:mm'), 'day') > 0
                                             ? ' i morgen'
                                             : ''}</td>
-                                    <td className='col-md-5'><img alt="Weather" src={imgUrl} className='weather-image'/> {time.temperature["@attributes"].value}&deg;C, {time.precipitation['@attributes'].value}mm nedbør</td>
+                                    <td className='col-md-5'><img alt="Weather" src={imgUrl} className='weather-image'/> {time.temperature["@attributes"].value}&deg;C {time.precipitation['@attributes'].value > 0 ? ', ' + time.precipitation['@attributes'].value + 'mm nedbør' : ''}</td>
                                     <td className='col-md-3 align-right'>{time.windSpeed["@attributes"].name}, {time.windSpeed["@attributes"].mps}m/s</td>
                                  </tr>
                             );
